@@ -37,6 +37,15 @@ thme <- theme_minimal(base_size = 11) +
 dim(fire)
 glimpse(fire)
 
-
+## Missing values and duplicados
+qlty <- tibble(
+  n.rows  = nrow(fire),
+  n.na    = sum(is.na(fire)),
+  n.dupl  = sum(duplicated(fire[, c('LATITUDE', 'LONGITUDE', 'ACQ_DATE', 'ACQ_TIME', 'SATELLITE')])),
+  dt.min  = min(fire$ACQ_DATE),
+  dt.max  = max(fire$ACQ_DATE),
+  lat.rng = paste(range(fire$LATITUDE), collapse = ' / '),
+  lon.rng = paste(range(fire$LONGITUDE), collapse = ' / ')
+)
 
 
