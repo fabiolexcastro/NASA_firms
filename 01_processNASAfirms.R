@@ -34,5 +34,9 @@ thme <- theme_minimal(base_size = 11) +
         legend.position = 'top')
 
 # Control quality ---------------------------------------------------------
+dim(fire)
+glimpse(fire)
+
+
 
 
