@@ -55,3 +55,9 @@ fire %>% count(TYPE)
 fire %>% count(VERSION)    
 fire %>% group_by(VERSION) %>% summarise(dt.min = min(ACQ_DATE), dt.max = max(ACQ_DATE))
 fire %>% count(CONFIANZA)
+
+## Power values, NASA NA value: -999
+powr <- powr %>% mutate(across(ALLSKY_SFC_SW_DWN:PRECTOTCORR, as.numeric))
+powr
+powr %>% summarise(across(ALLSKY_SFC_SW_DWN:PRECTOTCORR, ~ sum(is.na(.x) | .x == -999)))
+nrow(powr) == as.numeric(max(powr$FECHA) - min(powr$FECHA)) + 1
