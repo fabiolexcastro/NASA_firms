@@ -19,4 +19,5 @@ dir.create(dout, recursive = T, showWarnings = F)
 
 excel_sheets(path)
 fire <- readxl::read_excel(path, sheet = 'FIRMS')
+powr <- readxl::read_excel(path, sheet = 'POWER')
 
