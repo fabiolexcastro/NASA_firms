@@ -79,4 +79,8 @@ frcl <- fire %>% filter(type == 0, confidence >= 30)
 cat('Removed: ', nrow(fire) - nrow(frcl), ' detections (type != 0 or confidence < 30)\n')
 
 ## power
-
+powr <- powr %>%
+  mutate(date = as.Date(DOY - 1, origin = paste0(YEAR, '-01-01'))) %>%
+  transmute(date, year = YEAR, month = month(date),
+            tmean = T2M, tmax = T2M_MAX, tmin = T2M_MIN, rhum = RH2M,
+            wind = WS2M, prec = PRECTOTCORR, srad = ALLSKY_SFC_SW_DWN)
