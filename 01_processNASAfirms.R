@@ -52,4 +52,6 @@ qlty <- tibble(
 fire %>% count(SATELLITE)
 fire %>% count(DAYNIGHT)
 fire %>% count(TYPE)  
-
+fire %>% count(VERSION)    
+fire %>% group_by(VERSION) %>% summarise(dt.min = min(ACQ_DATE), dt.max = max(ACQ_DATE))
+fire %>% count(CONFIANZA)
