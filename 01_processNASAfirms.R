@@ -61,3 +61,15 @@ powr <- powr %>% mutate(across(ALLSKY_SFC_SW_DWN:PRECTOTCORR, as.numeric))
 powr
 powr %>% summarise(across(ALLSKY_SFC_SW_DWN:PRECTOTCORR, ~ sum(is.na(.x) | .x == -999)))
 nrow(powr) == as.numeric(max(powr$FECHA) - min(powr$FECHA)) + 1
+
+# Clean datos -------------------------------------------------------------
+
+fire <- fire %>%
+  rename(year = matches('^A.O$'), month = MES, frp.class = starts_with('POTENCIAL')) %>%
+  rename_with(~ tolower(.x)) %>%
+  mutate(acq_date  = as.Date(acq_date),
+         frp.class = str_squish(frp.class),
+         frp.class = factor(frp.class, levels = c('<10 MW', '10-<50 MW', '50-<100 MW', '\u2265100 MW')),
+         satellite = factor(satellite, levels = c('Terra', 'Aqua')))
+
+fire |> dplyr::select(frp.class) |> pull() |> table()
