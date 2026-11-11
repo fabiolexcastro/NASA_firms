@@ -84,3 +84,16 @@ powr <- powr %>%
   transmute(date, year = YEAR, month = month(date),
             tmean = T2M, tmax = T2M_MAX, tmin = T2M_MIN, rhum = RH2M,
             wind = WS2M, prec = PRECTOTCORR, srad = ALLSKY_SFC_SW_DWN)
+
+# Analisis temporal -------------------------------------------------------
+
+## Annual detections by satellite
+anul <- frcl %>% count(year, satellite)
+g.anl <- ggplot(anul, aes(x = year, y = n, fill = satellite)) +
+  geom_col(width = 0.75) +
+  scale_fill_manual(values = clrs) +
+  scale_x_continuous(breaks = seq(2000, 2025, 5)) +
+  labs(title = 'Annual MODIS detections', subtitle = 'Aqua starts in July 2002; 2000 only covers Nov-Dec',
+       x = NULL, y = 'Detections', fill = NULL) +
+  thme
+g.anl
