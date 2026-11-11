@@ -16,3 +16,7 @@ path <- './data/datos_loja.xlsx'
 dout <- './output/eda'
 dir.create(dout, recursive = T, showWarnings = F)
 
+excel_sheets(path)
+
+
+
