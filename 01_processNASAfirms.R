@@ -25,4 +25,14 @@ powr <- readxl::read_excel(path, sheet = 'POWER')
 
 # Colors and theme (blue / orange = categorical slots 1-2)
 clrs <- c('Terra' = '#2a78d6', 'Aqua' = '#eb6834')
+thme <- theme_minimal(base_size = 11) +
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major = element_line(color = '#e1e0d9', linewidth = 0.3),
+        axis.text = element_text(color = '#52514e'),
+        plot.title = element_text(face = 'bold', color = '#0b0b0b'),
+        plot.subtitle = element_text(color = '#52514e'),
+        legend.position = 'top')
+
+# Control quality ---------------------------------------------------------
+
 
