@@ -73,3 +73,10 @@ fire <- fire %>%
          satellite = factor(satellite, levels = c('Terra', 'Aqua')))
 
 fire |> dplyr::select(frp.class) |> pull() |> table()
+
+## Keep vegetation fires (type 0) with nominal / high confidence (>= 30)
+frcl <- fire %>% filter(type == 0, confidence >= 30)
+cat('Removed: ', nrow(fire) - nrow(frcl), ' detections (type != 0 or confidence < 30)\n')
+
+## power
+
