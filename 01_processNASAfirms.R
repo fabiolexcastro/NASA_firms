@@ -48,4 +48,8 @@ qlty <- tibble(
   lon.rng = paste(range(fire$LONGITUDE), collapse = ' / ')
 )
 
+## Categorical data
+fire %>% count(SATELLITE)
+fire %>% count(DAYNIGHT)
+fire %>% count(TYPE)  
 
