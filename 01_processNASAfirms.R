@@ -214,3 +214,11 @@ g.map <- ggplot() +
   thme + theme(legend.position = 'right', axis.text = element_blank(), legend.key.height = unit(2, 'line'))
 g.map
 ggsave(plot = g.map, filename = './graphs/spatial-hex-pattern_distributions.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
+
+
+# Weather on fire days vs non-fire days -----------------------------------
+daly <- frcl %>%
+  group_by(date = acq_date) %>%
+  summarise(n.fire = n(), frp.sum = sum(frp), .groups = 'drop')
+summarise(n.fire = n(), frp.sum = sum(frp), .groups = 'drop')
+
