@@ -299,3 +299,9 @@ prcl <- ssn %>%
   ungroup() %>%
   mutate(rain = fct_rev(rain))
 
+## Wilcoxon test per variable
+wlcx <- ssn %>%
+  select(fire.day, tmax, rhum, wind, prec, srad) %>%
+  pivot_longer(-fire.day, names_to = 'var', values_to = 'value') %>%
+  group_by(var) %>%
+  summarise(p.value = wilcox.test(value ~ fire.day)$p.value, .groups = 'drop')
