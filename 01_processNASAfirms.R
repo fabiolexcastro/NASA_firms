@@ -181,12 +181,36 @@ g.frp
 ggsave(plot = g.frp, filename = './graphs/frp_distributions.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
 
 # Spatial pattern ---------------------------------------------------------
+
+##
 p_load(MetBrewer)
-g.map <- ggplot(frcl, aes(x = longitude, y = latitude)) +
-  geom_hex(bins = 45, color = NA) +
-  scale_fill_met_c('Tam', trans = 'log10') +
-  coord_quickmap() +
-  labs(title = 'Detection density', subtitle = 'Hexagonal bins, EPSG:4326',
-       x = 'Longitude', y = 'Latitude', fill = 'Detections') +
-  thme + theme(legend.position = 'right')
+
+##
+## Boundaries (geoBoundaries, simplified)
+root.bnd <- 'https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/main/releaseData/gbOpen'
+read.bnd <- function(iso3, levl){
+  # iso3 <- 'ECU'; levl <- 'ADM1'
+  url <- glue::glue('{root.bnd}/{iso3}/{levl}/geoBoundaries-{iso3}-{levl}_simplified.geojson')
+  bnd <- st_read(url, quiet = T) %>% st_make_valid()
+  return(bnd)
+}
+
+ecu1 <- read.bnd('ECU', 'ADM1')
+ecu2 <- read.bnd('ECU', 'ADM2')
+
+loja <- ecu1 %>% filter(shapeName == 'Loja')
+cntn <- ecu2 %>% filter(st_intersects(st_point_on_surface(geometry), loja, sparse = F)[, 1])
+
+g.map <- ggplot() +
+  geom_hex(data = frcl, aes(x = longitude, y = latitude), bins = 45, color = NA) +
+  geom_sf(data = cntn, fill = NA, color = 'grey55', linewidth = 0.2) +
+  geom_sf(data = loja, fill = NA, color = 'grey20', linewidth = 0.4) +
+  scale_fill_met_c('Tam') +
+  coord_sf() +
+  labs(title = 'Detection density',
+       subtitle = 'Fire activity concentrates in western Loja (Pindal, Celica, Zapotillo)',
+       caption = 'MODIS active fires 2000-2025, hexagonal bins (~5 km)',
+       x = NULL, y = NULL, fill = 'Detections') +
+  thme + theme(legend.position = 'right', axis.text = element_blank(), legend.key.height = unit(2, 'line'))
 g.map
+ggsave(plot = g.map, filename = './graphs/spatial-hex-pattern_distributions.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
