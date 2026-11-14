@@ -102,3 +102,5 @@ ggsave(plot = g.anl, filename = './graphs/eda_fire_satellite.png', units = 'in',
 
 ## Trend on Terra only
 trra <- anul %>% filter(satellite == 'Terra', year >= 2001)
+mken <- cor.test(trra$year, trra$n, method = 'kendall')
+mken
