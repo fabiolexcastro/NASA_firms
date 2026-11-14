@@ -121,3 +121,11 @@ g.mnt <- ggplot(mndt, aes(x = factor(month), y = n)) +
 
 g.mnt
 ggsave(plot = g.mnt, filename = './graphs/dist_monthly_fires.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
+
+## Year x month heatmap
+hmap <- frcl %>%
+  count(year, month) %>%
+  complete(year = 2000:2025, month = 1:12, fill = list(n = 0))
+
+
+
