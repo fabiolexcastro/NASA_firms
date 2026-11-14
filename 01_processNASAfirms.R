@@ -156,3 +156,12 @@ g.anm <- ggplot(anml, aes(x = factor(month), y = factor(year), fill = anom)) +
   thme + theme(panel.grid = element_blank(), legend.position = 'right', legend.key.height = unit(2.3, 'line'))
 g.anm
 ggsave(plot = g.anm, filename = './graphs/anomalies_detections.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
+
+# Fire intensity ----------------------------------------------------------
+summary(frcl$frp)
+quantile(frcl$frp, c(0.5, 0.9, 0.99))
+frcl %>% count(frp.class) %>% mutate(prc = n / sum(n) * 100)
+
+
+
+
