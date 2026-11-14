@@ -253,5 +253,21 @@ stts <- ssn %>%
 
 make.dens <- function(vrbl, ttle, unit){
   # vrbl <- 'tmax'; ttle <- 'Maximum temperature'; unit <- '\u00b0C'
-
+  cat('Processing: ', vrbl, '\n')
+  dta <- ssn %>% select(fire.day, value = all_of(vrbl))
+  stt <- stts %>% filter(var == vrbl)
+  dff <- stt$md.fire - stt$md.none
+  sgn <- if_else(stt$p.value < 0.001, 'p < 0.001', paste0('p = ', round(stt$p.value, 2)))
+  sbt <- paste0('Median difference: ', if_else(dff > 0, '+', ''), round(dff, if_else(abs(dff) < 0.1, 2, 1)), ' ', unit, ' (', sgn, ')')
+  gpl <- ggplot(dta, aes(x = value, fill = fire.day, color = fire.day)) +
+    geom_density(alpha = 0.30, linewidth = 0.6, adjust = 1.2) +
+    geom_vline(data = tibble(fire.day = c('Fire day', 'No fire'), md = c(stt$md.fire, stt$md.none)),
+               aes(xintercept = md, color = fire.day), linetype = 'dashed', linewidth = 0.5) +
+    scale_fill_manual(values = clfr) +
+    scale_color_manual(values = clfr) +
+    labs(title = ttle, subtitle = sbt, x = unit, y = NULL, fill = NULL, color = NULL) +
+    thme +
+    theme(axis.text.y = element_blank(), panel.grid.major.y = element_blank(),
+          plot.title = element_text(size = 11), plot.subtitle = element_text(size = 8.5))
+  return(gpl)
 }
