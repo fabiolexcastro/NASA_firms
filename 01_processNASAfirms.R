@@ -325,7 +325,6 @@ ggsave(plot = g.prc, filename = './graphs/prec_firedays.jpg', units = 'in', widt
 
 
 ##
-
 g.wth <- (g.tmx + g.rhm) / (g.srd + g.wnd) / g.prc +
   plot_layout(guides = 'collect', heights = c(1, 1, 0.75)) +
   plot_annotation(title = 'Weather on fire vs non-fire days',
@@ -334,3 +333,6 @@ g.wth <- (g.tmx + g.rhm) / (g.srd + g.wnd) / g.prc +
   theme(legend.position = 'bottom')
 
 ggsave(plot = g.wth, filename = file.path('./graphs', 'weather_fire_vs_nofire.png'), units = 'in', width = 9, height = 10, dpi = 300, bg = 'white')
+
+
+write_csv(dywt, file.path(dout, 'daily_fire_weather.csv'))
