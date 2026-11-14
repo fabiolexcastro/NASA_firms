@@ -106,23 +106,17 @@ mken <- cor.test(trra$year, trra$n, method = 'kendall')
 mken
 
 # Monthly climatology -----------------------------------------------------
-mnth <- frcl %>%
+mndt <- frcl %>%
   filter(year >= 2001) %>%
   count(year, month) %>%
-  complete(year, month = 1:12, fill = list(n = 0)) %>%
-  group_by(month) %>%
-  summarise(mean = mean(n), sd = sd(n), .groups = 'drop') %>%
-  mutate(shre = mean / sum(mean)) 
-mnth
+  complete(year, month = 1:12, fill = list(n = 0))
 
-g.mnt <- ggplot(mnth, aes(x = factor(month), y = mean)) +
-  geom_col(fill = '#2a78d6', width = 0.7) +
-  geom_errorbar(aes(ymin = pmax(mean - sd, 0), ymax = mean + sd), width = 0.2, color = '#898781') +
+g.mnt <- ggplot(mndt, aes(x = factor(month), y = n)) +
+  geom_boxplot(width = 0.6, outlier.shape = NA, fill = '#cde2fb', color = '#52514e') +
+  geom_jitter(width = 0.15, size = 1.2, alpha = 0.5, color = '#2a78d6') +
   scale_x_discrete(labels = month.abb) +
-  labs(title = 'Monthly climatology of detections', subtitle = 'Mean \u00b1 SD, 2001-2025',
+  labs(title = 'Monthly distribution of detections', subtitle = 'One point per year, 2001-2025',
        x = NULL, y = 'Detections / month') +
-  thme  
+  thme
 
 g.mnt
-
-
