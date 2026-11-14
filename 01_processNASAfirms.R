@@ -127,5 +127,15 @@ hmap <- frcl %>%
   count(year, month) %>%
   complete(year = 2000:2025, month = 1:12, fill = list(n = 0))
 
+g.hmp <- hmap %>%
+  mutate(n = na_if(n, 0)) %>%
+  ggplot(aes(x = factor(month), y = factor(year), fill = n)) +
+  geom_tile(color = '#fcfcfb', linewidth = 0.4) +
+  scale_fill_distiller(palette = 'YlOrRd', direction = 1, trans = 'sqrt', na.value = '#e1e0d9') +
+  scale_x_discrete(labels = month.abb) +
+  labs(title = 'Detections by year and month', subtitle = 'Grey = no detections',
+       x = NULL, y = NULL, fill = 'Detections') +
+  thme + theme(panel.grid = element_blank(), legend.position = 'right')
+g.hmp
 
 
