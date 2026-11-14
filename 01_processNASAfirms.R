@@ -305,3 +305,18 @@ wlcx <- ssn %>%
   pivot_longer(-fire.day, names_to = 'var', values_to = 'value') %>%
   group_by(var) %>%
   summarise(p.value = wilcox.test(value ~ fire.day)$p.value, .groups = 'drop')
+
+g.prc <- ggplot(prcl, aes(x = prc, y = fire.day, fill = rain)) +
+  geom_col(width = 0.6, color = '#fcfcfb', linewidth = 0.6) +
+  geom_text(aes(label = if_else(prc >= 0.04, percent(prc, accuracy = 1), ''), group = rain,
+                color = if_else(rain %in% c('Dry (< 0.1 mm)', '0.1 - 1 mm'), '#0b0b0b', '#ffffff')),
+            position = position_stack(vjust = 0.5), size = 3, fontface = 'bold') +
+  scale_color_identity() +
+  scale_fill_manual(values = c('Dry (< 0.1 mm)' = '#f2c88f', '0.1 - 1 mm' = '#92b4d4', '1 - 5 mm' = '#4f7cac', '> 5 mm' = '#1f3f66'),
+                    breaks = c('Dry (< 0.1 mm)', '0.1 - 1 mm', '1 - 5 mm', '> 5 mm')) +
+  scale_x_continuous(labels = percent, expand = c(0, 0)) +
+  labs(title = 'Precipitation', subtitle = 'Share of days by daily rainfall class', x = NULL, y = NULL, fill = NULL) +
+  thme +
+  theme(panel.grid.major.y = element_blank(), plot.title = element_text(size = 11),
+        plot.subtitle = element_text(size = 8.5), legend.position = 'bottom', legend.text = element_text(size = 8)) +
+  guides(fill = guide_legend(nrow = 1))
