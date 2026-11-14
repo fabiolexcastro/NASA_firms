@@ -287,7 +287,8 @@ g.dns <- (g.tmx + g.rhm) / (g.srd + g.wnd) +
                                 plot.subtitle = element_text(color = '#52514e', size = 10))) &
   theme(legend.position = 'bottom')
 
-
+ggsave(plot = g.dns, filename = file.path('./graphs', 'weather_density_4panels.png'),
+       units = 'in', width = 9, height = 8, dpi = 300, bg = 'white')
 
 
 
