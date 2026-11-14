@@ -1,6 +1,6 @@
 
 
-# Libraries ---------------------------------------------------------------
+# Libraries ----------------------------------------------------------------
 library(pacman)
 p_load(
   terra, sf, fs, tidyverse, readxl, glue, scales, openxlsx, readxl, patchwork, hexbin, stringr, geodata, RColorBrewer, ggspatial
@@ -178,5 +178,6 @@ g.frp <- ggplot(frcl, aes(x = frp, fill = daynight)) +
   thme
 g.frp
 
+ggsave(plot = g.frp, filename = './graphs/frp_distributions.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
 
 
