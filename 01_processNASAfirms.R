@@ -169,5 +169,14 @@ frcl %>%
   filter(rank <= 0.05) %>%
   summarise(frp.share.top5 = max(cums))
 
+g.frp <- ggplot(frcl, aes(x = frp, fill = daynight)) +
+  geom_histogram(bins = 40, color = '#fcfcfb', linewidth = 0.2) +
+  scale_x_log10(labels = label_number()) +
+  scale_fill_manual(values = c('D' = '#2a78d6', 'N' = '#eb6834'), labels = c('Day', 'Night')) +
+  labs(title = 'FRP distribution', subtitle = 'Log scale - strongly right-skewed',
+       x = 'FRP (MW)', y = 'Detections', fill = NULL) +
+  thme
+g.frp
+
 
 
