@@ -320,3 +320,5 @@ g.prc <- ggplot(prcl, aes(x = prc, y = fire.day, fill = rain)) +
   theme(panel.grid.major.y = element_blank(), plot.title = element_text(size = 11),
         plot.subtitle = element_text(size = 8.5), legend.position = 'bottom', legend.text = element_text(size = 8)) +
   guides(fill = guide_legend(nrow = 1))
+
+ggsave(plot = g.prc, filename = './graphs/prec_firedays.jpg', units = 'in', width = 8, height = 5, dpi = 300, create.dir = T)
