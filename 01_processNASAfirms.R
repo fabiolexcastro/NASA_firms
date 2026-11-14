@@ -147,5 +147,13 @@ anml <- mndt %>%
   ungroup()
 anml
 
+g.anm <- ggplot(anml, aes(x = factor(month), y = factor(year), fill = anom)) +
+  geom_tile(color = '#fcfcfb', linewidth = 0.4) +
+  scale_fill_gradient2(low = '#2a78d6', mid = '#f0efec', high = '#eb6834', midpoint = 0) +
+  scale_x_discrete(labels = month.abb) +
+  labs(title = 'Monthly anomalies of detections', subtitle = 'Difference from the 2001-2025 monthly mean',
+       x = NULL, y = NULL, fill = 'Anomaly') +
+  thme + theme(panel.grid = element_blank(), legend.position = 'right', legend.key.height = unit(2.3, 'line'))
+g.anm
 
 
