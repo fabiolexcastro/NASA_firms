@@ -115,6 +115,14 @@ mnth <- frcl %>%
   mutate(shre = mean / sum(mean)) 
 mnth
 
+g.mnt <- ggplot(mnth, aes(x = factor(month), y = mean)) +
+  geom_col(fill = '#2a78d6', width = 0.7) +
+  geom_errorbar(aes(ymin = pmax(mean - sd, 0), ymax = mean + sd), width = 0.2, color = '#898781') +
+  scale_x_discrete(labels = month.abb) +
+  labs(title = 'Monthly climatology of detections', subtitle = 'Mean \u00b1 SD, 2001-2025',
+       x = NULL, y = 'Detections / month') +
+  thme  
 
+g.mnt
 
 
