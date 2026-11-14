@@ -137,5 +137,6 @@ g.hmp <- hmap %>%
        x = NULL, y = NULL, fill = 'Detections') +
   thme + theme(panel.grid = element_blank(), legend.position = 'right')
 g.hmp
+ggsave(plot = g.hmp, filename = './graphs/heatmap_detecciones_fires.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
 
 
