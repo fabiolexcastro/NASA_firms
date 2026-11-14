@@ -322,3 +322,15 @@ g.prc <- ggplot(prcl, aes(x = prc, y = fire.day, fill = rain)) +
   guides(fill = guide_legend(nrow = 1))
 
 ggsave(plot = g.prc, filename = './graphs/prec_firedays.jpg', units = 'in', width = 8, height = 5, dpi = 300, create.dir = T)
+
+
+##
+
+g.wth <- (g.tmx + g.rhm) / (g.srd + g.wnd) / g.prc +
+  plot_layout(guides = 'collect', heights = c(1, 1, 0.75)) +
+  plot_annotation(title = 'Weather on fire vs non-fire days',
+                  subtitle = 'Loja, fire season (Aug-Dec) 2000-2025 \u00b7 NASA POWER daily data \u00b7 dashed lines = medians',
+                  theme = theme(plot.title = element_text(face = 'bold', size = 15), plot.subtitle = element_text(color = '#52514e', size = 10))) &
+  theme(legend.position = 'bottom')
+
+ggsave(plot = g.wth, filename = file.path('./graphs', 'weather_fire_vs_nofire.png'), units = 'in', width = 9, height = 10, dpi = 300, bg = 'white')
