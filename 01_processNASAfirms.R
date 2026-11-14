@@ -120,3 +120,4 @@ g.mnt <- ggplot(mndt, aes(x = factor(month), y = n)) +
   thme
 
 g.mnt
+ggsave(plot = g.mnt, filename = './graphs/dist_monthly_fires.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
