@@ -162,6 +162,12 @@ summary(frcl$frp)
 quantile(frcl$frp, c(0.5, 0.9, 0.99))
 frcl %>% count(frp.class) %>% mutate(prc = n / sum(n) * 100)
 
+## Share of total radiative power from the top 5% of detections
+frcl %>%
+  arrange(desc(frp)) %>%
+  mutate(cums = cumsum(frp) / sum(frp), rank = row_number() / n()) %>%
+  filter(rank <= 0.05) %>%
+  summarise(frp.share.top5 = max(cums))
 
 
 
