@@ -240,3 +240,13 @@ cmpr
 
 # Weather on fire vs non-fire days - figure -------------------------------
 clfr <- c('Fire day' = '#de4f33', 'No fire' = '#8b8b99')
+
+## Median and Wilcoxon p-value per variable, used for the labels
+stts <- ssn %>%
+  select(fire.day, tmax, rhum, wind, srad) %>%
+  pivot_longer(-fire.day, names_to = 'var', values_to = 'value') %>%
+  group_by(var) %>%
+  summarise(md.fire = median(value[fire.day == 'Fire day']),
+            md.none = median(value[fire.day == 'No fire']),
+            p.value = wilcox.test(value ~ fire.day)$p.value,
+            .groups = 'drop')
