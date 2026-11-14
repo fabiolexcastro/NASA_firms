@@ -220,5 +220,13 @@ ggsave(plot = g.map, filename = './graphs/spatial-hex-pattern_distributions.png'
 daly <- frcl %>%
   group_by(date = acq_date) %>%
   summarise(n.fire = n(), frp.sum = sum(frp), .groups = 'drop')
-summarise(n.fire = n(), frp.sum = sum(frp), .groups = 'drop')
+
+dywt <- powr %>%
+  left_join(daly, by = 'date') %>%
+  mutate(n.fire  = replace_na(n.fire, 0),
+         frp.sum = replace_na(frp.sum, 0),
+         fire.day = if_else(n.fire > 0, 'Fire day', 'No fire'))
+
+## Compare within the fire season only (Aug-Dec) to avoid a pure seasonal contrast
+ssn <- dywt %>% filter(month %in% 8:12)
 
