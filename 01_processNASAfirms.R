@@ -290,5 +290,12 @@ g.dns <- (g.tmx + g.rhm) / (g.srd + g.wnd) +
 ggsave(plot = g.dns, filename = file.path('./graphs', 'weather_density_4panels.png'),
        units = 'in', width = 9, height = 8, dpi = 300, bg = 'white')
 
-
+## Precipitation: skewed with many dry days -> share of days by rain class
+prcl <- ssn %>%
+  mutate(rain = cut(prec, breaks = c(-Inf, 0.1, 1, 5, Inf), labels = c('Dry (< 0.1 mm)', '0.1 - 1 mm', '1 - 5 mm', '> 5 mm'))) %>%
+  count(fire.day, rain) %>%
+  group_by(fire.day) %>%
+  mutate(prc = n / sum(n)) %>%
+  ungroup() %>%
+  mutate(rain = fct_rev(rain))
 
