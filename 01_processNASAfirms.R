@@ -104,3 +104,17 @@ ggsave(plot = g.anl, filename = './graphs/eda_fire_satellite.png', units = 'in',
 trra <- anul %>% filter(satellite == 'Terra', year >= 2001)
 mken <- cor.test(trra$year, trra$n, method = 'kendall')
 mken
+
+# Monthly climatology -----------------------------------------------------
+mnth <- frcl %>%
+  filter(year >= 2001) %>%
+  count(year, month) %>%
+  complete(year, month = 1:12, fill = list(n = 0)) %>%
+  group_by(month) %>%
+  summarise(mean = mean(n), sd = sd(n), .groups = 'drop') %>%
+  mutate(shre = mean / sum(mean)) 
+mnth
+
+
+
+
