@@ -230,3 +230,13 @@ dywt <- powr %>%
 ## Compare within the fire season only (Aug-Dec) to avoid a pure seasonal contrast
 ssn <- dywt %>% filter(month %in% 8:12)
 
+cmpr <- ssn %>%
+  select(fire.day, tmax, rhum, wind, prec, srad) %>%
+  pivot_longer(-fire.day, names_to = 'var', values_to = 'value') %>%
+  group_by(var, fire.day) %>%
+  summarise(median = median(value), .groups = 'drop') %>%
+  pivot_wider(names_from = fire.day, values_from = median)
+cmpr
+
+# Weather on fire vs non-fire days - figure -------------------------------
+clfr <- c('Fire day' = '#de4f33', 'No fire' = '#8b8b99')
