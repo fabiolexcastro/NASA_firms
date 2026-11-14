@@ -278,6 +278,15 @@ g.rhm <- make.dens(vrbl = 'rhum', ttle = 'Relative humidity', unit = '%')
 g.srd <- make.dens(vrbl = 'srad', ttle = 'Solar radiation', unit = 'MJ/m\u00b2/day')
 g.wnd <- make.dens(vrbl = 'wind', ttle = 'Wind speed', unit = 'm/s')
 
+## Join the density graphs into only one
+g.dns <- (g.tmx + g.rhm) / (g.srd + g.wnd) +
+  plot_layout(guides = 'collect') +
+  plot_annotation(title = 'Weather on fire vs non-fire days',
+                  subtitle = 'Loja, fire season (Aug-Dec) 2000-2025 \u00b7 NASA POWER daily data \u00b7 dashed lines = medians',
+                  theme = theme(plot.title = element_text(face = 'bold', size = 15),
+                                plot.subtitle = element_text(color = '#52514e', size = 10))) &
+  theme(legend.position = 'bottom')
+
 
 
 
