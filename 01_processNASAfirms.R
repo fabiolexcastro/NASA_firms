@@ -139,4 +139,13 @@ g.hmp <- hmap %>%
 g.hmp
 ggsave(plot = g.hmp, filename = './graphs/heatmap_detecciones_fires.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
 
+## Monthly anomalies
+anml <- mndt %>%
+  group_by(month) %>%
+  mutate(clim = mean(n),
+         anom = n - clim) %>%
+  ungroup()
+anml
+
+
 
