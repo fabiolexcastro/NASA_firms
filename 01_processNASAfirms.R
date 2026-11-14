@@ -274,4 +274,11 @@ make.dens <- function(vrbl, ttle, unit){
 
 ## To apply the fucntion
 g.tmx <- make.dens(vrbl = 'tmax', ttle = 'Maximum temperature', unit = '\u00b0C')
-g.tmx
+g.rhm <- make.dens(vrbl = 'rhum', ttle = 'Relative humidity', unit = '%')
+g.srd <- make.dens(vrbl = 'srad', ttle = 'Solar radiation', unit = 'MJ/m\u00b2/day')
+g.wnd <- make.dens(vrbl = 'wind', ttle = 'Wind speed', unit = 'm/s')
+
+
+
+
+
