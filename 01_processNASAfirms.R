@@ -250,3 +250,8 @@ stts <- ssn %>%
             md.none = median(value[fire.day == 'No fire']),
             p.value = wilcox.test(value ~ fire.day)$p.value,
             .groups = 'drop')
+
+make.dens <- function(vrbl, ttle, unit){
+  # vrbl <- 'tmax'; ttle <- 'Maximum temperature'; unit <- '\u00b0C'
+
+}
