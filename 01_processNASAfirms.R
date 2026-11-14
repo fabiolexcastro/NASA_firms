@@ -180,4 +180,12 @@ g.frp
 
 ggsave(plot = g.frp, filename = './graphs/frp_distributions.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
 
-
+# Spatial pattern ---------------------------------------------------------
+g.map <- ggplot(frcl, aes(x = longitude, y = latitude)) +
+  geom_hex(bins = 45, color = NA) +
+  scale_fill_gradientn(colours = RColorBrewer::brewer.pal(9, 'YlOrRd')[3:9], trans = 'log10') +
+  coord_quickmap() +
+  labs(title = 'Detection density', subtitle = 'Hexagonal bins, EPSG:4326',
+       x = 'Longitude', y = 'Latitude', fill = 'Detections') +
+  thme + theme(legend.position = 'right')
+g.map
