@@ -99,3 +99,6 @@ g.anl <- ggplot(anul, aes(x = year, y = n, fill = satellite)) +
 g.anl
 
 ggsave(plot = g.anl, filename = './graphs/eda_fire_satellite.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
+
+## Trend on Terra only
+trra <- anul %>% filter(satellite == 'Terra', year >= 2001)
