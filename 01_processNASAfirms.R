@@ -155,5 +155,4 @@ g.anm <- ggplot(anml, aes(x = factor(month), y = factor(year), fill = anom)) +
        x = NULL, y = NULL, fill = 'Anomaly') +
   thme + theme(panel.grid = element_blank(), legend.position = 'right', legend.key.height = unit(2.3, 'line'))
 g.anm
-
-
+ggsave(plot = g.anm, filename = './graphs/anomalies_detections.png', units = 'in', width = 8, height = 6, dpi = 300, create.dir = T)
