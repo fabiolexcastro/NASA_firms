@@ -271,3 +271,7 @@ make.dens <- function(vrbl, ttle, unit){
           plot.title = element_text(size = 11), plot.subtitle = element_text(size = 8.5))
   return(gpl)
 }
+
+## To apply the fucntion
+g.tmx <- make.dens(vrbl = 'tmax', ttle = 'Maximum temperature', unit = '\u00b0C')
+g.tmx
